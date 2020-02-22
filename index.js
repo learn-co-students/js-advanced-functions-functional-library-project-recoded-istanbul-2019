@@ -144,17 +144,66 @@ const fi = (function() {
     // }
     
    // return newCollection
-    flatten: function(collection,shallow=false) {
-    if(!shallow){
-      return collection.flat(Infinity) 
-    }
-    else{
-      return collection.flat()
+    // flatten: function(collection,shallow=false) {
+    // if(!shallow){
+    //   return collection.flat(Infinity) 
+    // }
+    // else{
+    //   return collection.flat()
     
-    }
+    // }
     
-    return newCollection
-    },
+    // return newCollection
+    // },
+    // if(shallow){//true
+    //   return [...collection];
+    // }
+    // else{//false
+      
+    
+    // }
+    
+    // return newCollection
+    // },
+    // flatten: function(collection,shallow=false) {
+    // let newCollection=[];
+    //   if(shallow){
+    //   for(let i=0;i<collection.length;i++){
+    //     if(collection[i] instanceof Array){
+    //       newCollection.push(...collection[i])
+    //     }
+    //   else{
+    //     newCollection.push(collection[i])
+    //       }
+    //     }
+    //   }
+    //   else{
+     
+    //   }
+    //   return newCollection;
+    //     },
+           flatten: function(array, shallow = false, newArray = []) {
+            if (!Array.isArray(array)) {
+                return newArray.push(array)
+            }
+            if (shallow) {
+                for (let value of array) {
+                    if (Array.isArray(value)) {
+                        for (let i = 0; i < value.length; i++) {
+                            newArray.push(value[i])
+                        }
+                    } else {
+                        newArray.push(value)
+                    }
+                }
+            } else {
+                for (let value of array) {
+                    this.flatten(value, false, newArray)
+                }
+            }
+            return newArray
+        },
+    
     uniq: function(collection,fd,callback) {
   console.log(callback===undefined)
       if(callback===undefined){
@@ -187,12 +236,23 @@ else{
     return Object.keys(object);
     },
     values: function(object) {
-return Object.values(object);
+      return Object.values(object);
     },
-    functions: function() {
-
+    // functions: function(fi) {
+    //   return Object.keys(fi);
+    // },
+     functions: function(fi) {
+       let result=[];
+      for(let x in fi){
+        if(typeof(fi[x])=="function"){
+          result.push(x);
+        }
+        
+      }
+      return result;
     },
+  
   }
 })()
-
+fi.functions(fi)
 fi.libraryMethod()
