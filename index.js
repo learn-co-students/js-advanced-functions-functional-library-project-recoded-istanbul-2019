@@ -22,14 +22,62 @@ const fi = (function() {
         return newCollection;
     },
 
-    reduce: function() {
+    reduce: function(collection, callback, acc) {
+        // let result = acc;
 
+        // for (let i = 0; i < collection.length; i++) {
+        //   result += callback(acc, collection[i], collection);
+        // }
+
+        // return result;
+
+        for (const i in collection) {
+          if(acc === undefined) acc = collection[i];
+          else acc = callback(acc, collection[i], collection);
+        }
+
+        return acc;
     },
 
     functions: function() {
-
+        
     },
 
+    find: function(collection, predicate) {
+      if(predicate == undefined) return undefined;
+
+      for(let i = 0; i < collection.length; i++) {
+        if(predicate(collection[i])) {
+          return collection[i];
+        }
+      }
+
+      return undefined;
+    },
+
+    flatten: function(array, shallow = false, newArray = []) {
+        if(!Array.isArray(array)) {
+          return newArray.push(array);
+        }
+
+        if(shallow) {
+          for(let value of array) {
+            if(Array.isArray(value)) {
+              for (let i = 0; i < value.length; i++) {
+                newArray.push(value[i]);
+              } 
+            } else {
+              newArray.push(value);
+            }
+          }
+        } else {
+            for (let value of array) {
+              this.flatten(value, false, newArray);
+            }
+        }
+        return newArray;
+
+    }
 
   }
 })()
