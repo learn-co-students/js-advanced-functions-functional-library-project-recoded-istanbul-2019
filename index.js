@@ -87,37 +87,42 @@ const fi = (function() {
 
       if (n === undefined) return array[array.length - 1];
 
-      for (let i = array.length - n;  i < array.length; i++) {
-         newArray.push(array[i]);
+      for (let i = array.length - n; i < array.length; i++) {
+        newArray.push(array[i]);
       }
 
       return newArray;
     },
 
-    flatten: function(array, shallow = false, newArray = []) {
-        if(!Array.isArray(array)) {
-          return newArray.push(array);
-        }
+    compact: function(array) {
+      let newArray = [];
 
-        if(shallow) {
-          for(let value of array) {
-            if(Array.isArray(value)) {
-              for (let i = 0; i < value.length; i++) {
-                newArray.push(value[i]);
-              } 
-            } else {
-              newArray.push(value);
-            }
+      for (let i = 0; i < array.length; i++) {
+        if(array[i]) newArray.push(array[i]);
+      }
+
+      return newArray;
+    },
+    
+    sortBy: function(array, callback) {
+        let clone = [...array];
+        return clone.sort((a, b) => callback(a) > callback(b) ? 1 : -1);
+    },
+
+    uniq: function(array, isSorted = false, callback = undefined) {
+      let newArray = [array[0]];
+      
+      if(!isSorted) {
+        for (let i in array) {
+          if(!newArray.includes(array[i])) {
+            newArray.push(array[i]);
           }
-        } else {
-            for (let value of array) {
-              this.flatten(value, false, newArray);
-            }
         }
         return newArray;
-
-    }
-
+      }
+     
+    },
+    
   }
 })()
 
