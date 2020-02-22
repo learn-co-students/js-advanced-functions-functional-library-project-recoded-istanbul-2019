@@ -122,6 +122,49 @@ const fi = (function() {
       }
      
     },
+
+    flatten: function(array, shallow = false, newArray = []) {
+      if (!Array.isArray(array)) {
+          return newArray.push(array)
+      }
+      if (shallow) {
+          for (let value of array) {
+              if (Array.isArray(value)) {
+                  for (let i = 0; i < value.length; i++) {
+                      newArray.push(value[i])
+                  }
+              } else {
+                  newArray.push(value)
+              }
+          }
+      } else {
+          for (let value of array) {
+              this.flatten(value, false, newArray)
+          }
+      }
+      return newArray
+  },
+
+  keys: function(object) {
+    let newArray = [];
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        newArray.push(key);
+      }
+    }
+    return newArray;
+  },
+
+  values: function(object) {
+    let newArray = [];
+    
+    for (const i of object) {
+      newArray.push(object[i]);
+    }
+
+    return newArray;
+  },
+
     
   }
 })()
