@@ -55,6 +55,45 @@ const fi = (function() {
       return undefined;
     },
 
+    filter: function(collection, predicate) {
+      let newArray = [];
+      for(let i = 0; i < collection.length; i++) {
+        if(predicate(collection[i])) {
+          newArray.push(collection[i]);
+        }
+      }
+
+      return newArray;
+    },
+
+    size: function(collection) {
+      return Object.keys(collection).length;
+    },
+
+    first: function(array, n) {
+      let newArray = [];
+
+      if (n === undefined) return array[0];
+
+      for (let i = 0; i < n; i++) {
+         newArray.push(array[i]);
+      }
+
+      return newArray;
+    },
+
+    last: function(array, n) {
+      let newArray = [];
+
+      if (n === undefined) return array[array.length - 1];
+
+      for (let i = array.length - n;  i < array.length; i++) {
+         newArray.push(array[i]);
+      }
+
+      return newArray;
+    },
+
     flatten: function(array, shallow = false, newArray = []) {
         if(!Array.isArray(array)) {
           return newArray.push(array);
