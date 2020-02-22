@@ -158,12 +158,24 @@ const fi = (function() {
   values: function(object) {
     let newArray = [];
     
-    for (const i of object) {
+    for (let i in object) {
       newArray.push(object[i]);
     }
 
     return newArray;
   },
+
+  functions: function(object) {
+      let newArray = [];
+
+     for(let element in obj){
+       if(typeof obj[element] == 'function'){
+        newArray.push(element);
+      }
+     }
+     return newArray;
+
+  }
 
     
   }
