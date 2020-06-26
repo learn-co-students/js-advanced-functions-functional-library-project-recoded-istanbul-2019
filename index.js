@@ -190,13 +190,13 @@ const fi = (function() {
 
 
     functions: function (object) {
-      let functions = [];
+      const functionNames = [];
       for (let key in object) {
-        if (typeof object[key] === "function") {
-          functions.push(key)
+        if (typeof obj[key] === "function") {
+          functionNAmes.push(key)
         }
       }
-      return functions
+      return functionNames.sort()
     },
 
 
